@@ -19,13 +19,8 @@
     <div class="overlay bottom-left" id="legend"></div>
     <div class="overlay top-right"><span class="arrow-key">➜</span> propagation +x<br><span class="vector-key">↗</span> displacement vectors</div>
   </section>
-
   <section class="controls">
-    <div class="transport">
-      <button id="backBtn" aria-label="step backward">◀|</button><button id="playBtn" class="primary">Pause</button><button id="forwardBtn" aria-label="step forward">|▶</button>
-      <label>Time <input id="time" type="range" min="0" max="1" step="0.001" value="0"></label>
-      <label class="check"><input id="slow" type="checkbox"> Slow motion</label>
-    </div>
+    <div class="transport"><button id="backBtn">◀|</button><button id="playBtn" class="primary">Pause</button><button id="forwardBtn">|▶</button><label>Time <input id="time" type="range" min="0" max="1" step="0.001" value="0"></label><label class="check"><input id="slow" type="checkbox"> Slow motion</label></div>
     <div class="grid-controls">
       <label>Geometry<select id="geometry"><option value="block">Thick 3D block</option><option value="plate">Thin plate</option></select></label>
       <label>Wave<select id="wave"></select></label>
@@ -36,38 +31,15 @@
       <label>Cross-section <span id="sliceOut"></span><input id="slice" type="range" min="0" max="1" step="0.01" value="0.5"></label>
       <label>Camera<select id="camera"><option value="perspective">Perspective</option><option value="top">Top</option><option value="side">Side</option><option value="front">Front</option></select></label>
     </div>
-    <div class="toggles">
-      <label class="check"><input id="reference" type="checkbox" checked> Reference grid</label>
-      <label class="check"><input id="vectors" type="checkbox" checked> Displacement arrows</label>
-      <label class="check"><input id="trails" type="checkbox" checked> Particle trails</label>
-      <label class="check"><input id="colors" type="checkbox" checked> Color field</label>
-      <label class="check"><input id="crossSection" type="checkbox" checked> Cross-section</label>
-      <label class="check"><input id="compare" type="checkbox"> Comparison mode</label>
-      <button id="resetBtn">Reset</button>
-    </div>
+    <div class="toggles"><label class="check"><input id="reference" type="checkbox" checked> Reference grid</label><label class="check"><input id="vectors" type="checkbox" checked> Displacement arrows</label><label class="check"><input id="trails" type="checkbox" checked> Particle trails</label><label class="check"><input id="colors" type="checkbox" checked> Color field</label><label class="check"><input id="crossSection" type="checkbox" checked> Cross-section</label><label class="check"><input id="compare" type="checkbox"> Comparison mode</label><button id="resetBtn">Reset</button></div>
   </section>
-
-  <section class="panel">
-    <h2>Excitation mode</h2>
-    <p>Tap the model after selecting an impact direction. The bars show qualitative modal coupling, not a finite-element result.</p>
-    <div class="impact-buttons">
-      <button data-impact="normal">Normal impact</button><button data-impact="longitudinal">In-plane longitudinal</button><button data-impact="transverse">In-plane transverse</button>
-    </div>
-    <div id="coupling"></div>
-  </section>
-
-  <section class="panel" id="dispersionPanel">
-    <h2>Flexural pulse dispersion</h2>
-    <div class="toggles"><label class="check"><input id="pulse" type="checkbox"> Launch localized pulse</label><label class="check"><input id="realDispersion" type="checkbox" checked> Real dispersive flexural case</label></div>
-    <p id="velocityText"></p><canvas id="dispersionCanvas" width="900" height="220"></canvas>
-    <p>For a thin plate, bending moment depends on curvature. Curvature contributes two spatial derivatives and force balance contributes two more, giving a fourth-order term: <b>D∇⁴w</b>. Therefore ω²=(D/ρh)k⁴, so ω=√(D/ρh)k². Higher-k components have larger phase and group velocities, causing a pulse to spread.</p>
-  </section>
-
+  <section class="panel"><h2>Excitation mode</h2><p>Tap the model after selecting an impact direction. The bars show qualitative modal coupling, not a finite-element result.</p><div class="impact-buttons"><button data-impact="normal">Normal impact</button><button data-impact="longitudinal">In-plane longitudinal</button><button data-impact="transverse">In-plane transverse</button></div><div id="coupling"></div></section>
+  <section class="panel" id="dispersionPanel"><h2>Flexural pulse dispersion</h2><div class="toggles"><label class="check"><input id="pulse" type="checkbox"> Launch localized pulse</label><label class="check"><input id="realDispersion" type="checkbox" checked> Real dispersive flexural case</label></div><p id="velocityText"></p><canvas id="dispersionCanvas" width="900" height="220"></canvas><p>For a thin plate, bending moment depends on curvature. Curvature contributes two spatial derivatives and force balance contributes two more, giving <b>D∇⁴w</b>. Therefore ω²=(D/ρh)k⁴, and higher-k components travel faster.</p></section>
   <details class="panel"><summary>Physics: equations, symbols and assumptions</summary><div id="physics"></div></details>
 </main>
-
 <div id="tutorial" class="modal hidden"><div class="dialog"><h2 id="tutorialTitle"></h2><p id="tutorialText"></p><div><button id="tutorialPrev">Previous</button><button id="tutorialNext" class="primary">Next</button><button id="tutorialClose">Close</button></div></div></div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script type="module" src="app.js"></script>
+<script type="module" src="v2.js"></script>
 </body>
 </html>
