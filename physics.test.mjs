@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {displacement,flexuralOmega,flexuralPhaseVelocity,flexuralGroupVelocity,nondispersiveOmega} from '../physics.js';
+const p={x:0,y:0,z:0};
+test('P motion is parallel to propagation',()=>{const u=displacement('p',p,0,{amplitude:1,wavelength:4,frequency:1});assert.notEqual(u.x,0);assert.equal(u.y,0);assert.equal(u.z,0)});
+test('SH motion is transverse horizontal',()=>{const u=displacement('sh',p,0,{amplitude:1,wavelength:4,frequency:1});assert.equal(u.x,0);assert.notEqual(u.y,0);assert.equal(u.z,0)});
+test('SV motion is transverse vertical',()=>{const u=displacement('sv',p,0,{amplitude:1,wavelength:4,frequency:1});assert.equal(u.x,0);assert.equal(u.y,0);assert.notEqual(u.z,0)});
+test('Rayleigh amplitude decays with depth',()=>{const a=displacement('rayleigh',{x:0,y:0,z:0},.1,{amplitude:1,wavelength:4,frequency:1});const b=displacement('rayleigh',{x:0,y:0,z:-2},.1,{amplitude:1,wavelength:4,frequency:1});assert.ok(Math.hypot(a.x,a.z)>Math.hypot(b.x,b.z))});
+test('flexural omega scales with k squared',()=>{assert.ok(Math.abs(flexuralOmega(4)/flexuralOmega(2)-4)<1e-12)});
+test('thin plate group velocity is twice phase velocity',()=>{assert.ok(Math.abs(flexuralGroupVelocity(2)-2*flexuralPhaseVelocity(2))<1e-12)});
+test('nondispersive phase speed is constant',()=>{assert.equal(nondispersiveOmega(5,3)/5,3)});
